@@ -1,14 +1,25 @@
-//import mysql from 'mysql2';
-import { Sequelize } from 'sequelize';
-import dotenv from dotenv;
-dotenv.config();
+import { Sequelize } from "sequelize";
+import "dotenv/config";
+import config from "../../config/env/index.js";
+import { remarks } from "../../modules/remarks/remarks.model.js";
 
-export const db = new Sequelize(process.env.DB_DATABASE,process.env.DB_USER,process.env.DB_PASSWORD,{
-    dialect: "mysql",
-    host: process.env.DB_HOST,
-    port: process.env.PORT,
-})
+export const db = new Sequelize("rmsDb", "root", "", {
+  dialect: "mysql",
+  host: "localhost",
+  port: 3306,
+});
 
+console.log(`host:${config.mysql.host},port:${config.mysql.port}`);
+
+export const dbConnect = async () => {
+  try {
+    await db.authenticate();
+    remarks.sync();
+    console.log("Connected to MySQL database");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+};
 
 // export const connection = mysql.createConnection({
 //     host: process.env.DB_HOST,
@@ -21,4 +32,3 @@ export const db = new Sequelize(process.env.DB_DATABASE,process.env.DB_USER,proc
 //     if (err) throw err;
 //     console.log('Connected to MySQL database');
 // });
-

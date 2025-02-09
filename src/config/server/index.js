@@ -4,6 +4,7 @@ import cors from "cors";
 import { createServer } from "http";
 import routes from "../../routes/index.js";
 import config from "../../config/env/index.js";
+import { dbConnect } from "../database/dbConnect.js";
 
 const app = express();
 
@@ -24,8 +25,9 @@ app.use("/api", routes);
 
 // Start server
 const server = createServer(app);
-server.listen(config.app.port, () => {
+server.listen(config.app.port, async () => {
   console.log(`Server Running on ${config.app.port}`);
+  await dbConnect();
 });
 
 export default server;

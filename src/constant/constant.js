@@ -3,6 +3,13 @@ export const api = {
     availableSlots: "/available-interview-slots",
     scheduleMeeting: "/schedule-meeting",
   },
+  remarks: {
+    addRemark: "/add-remark",
+    getRemarks: "/get-remarks",
+    getRemark: "/get-remark",
+    updateRemark: "/update-remark",
+    deleteRemark: "/delete-remark",
+  },
 };
 
 export const interviewerConfig = {
